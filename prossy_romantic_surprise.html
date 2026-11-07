@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Dearest Prossy ❤️</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Fredoka:wght@600;700&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --heart-pink: #ff4d6d;
+            --heart-deep: #c9184a;
+            --glow-color: rgba(255, 75, 110, 0.4);
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: radial-gradient(circle at center, #2e0920 0%, #1a0312 70%, #0d0109 100%);
+            min-height: 100vh;
+            min-height: 100dvh;
+            overflow-x: hidden;
+            touch-action: manipulation;
+            -webkit-user-select: none;
+            user-select: none;
+            color: #ffffff;
+        }
+
+        .font-cursive {
+            font-family: 'Dancing Script', cursive;
+        }
+
+        .font-playful {
+            font-family: 'Fredoka', sans-serif;
+        }
+
+        /* Ambient subtle backdrop grid pattern */
+        .ambient-bg {
+            background-image: 
+                radial-gradient(rgba(255, 182, 193, 0.18) 1.5px, transparent 1.5px),
+                radial-gradient(rgba(255, 105, 180, 0.12) 1.5px, transparent 1.5px);
+            background-size: 36px 36px;
+            background-position: 0 0, 18px 18px;
+        }
+
+        /* Floating background elements canvas */
+        #bgCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Card Container with Superior Contrast & Glassmorphism */
+        .contrast-card {
+            background: rgba(26, 4, 18, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1.5px solid rgba(255, 182, 193, 0.35);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), inset 0 1px 1px rgba(255, 255, 255, 0.3);
+        }
+
+        .light-card-badge {
+            background: rgba(255, 255, 255, 0.95);
+            color: #2b0417;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+        }
+
+        /* High-Legibility Text Drop Shadows */
+        .text-glow {
+            text-shadow: 0 0 15px rgba(255, 77, 109, 0.6), 0 2px 4px rgba(0, 0, 0, 0.8);
+        }
+
+        .text-shadow-strong {
+            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.9), 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        /* 3D Glassmorphic Heart Container for Single-Line Layout */
+        .heart-badge-wrapper {
+            perspective: 1000px;
+            cursor: pointer;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
+            flex-shrink: 0;
+        }
+
+        .heart-container {
+            position: relative;
+            /* Fluid clamp for ultra-compact fitting on mobile screens */
+            width: clamp(40px, 13.5vw, 110px);
+            height: clamp(40px, 13.5vw, 110px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), filter 0.3s ease;
+            transform-style: preserve-3d;
+        }
+
+        /* SVG Heart Base */
+        .heart-svg {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            filter: drop-shadow(0 4px 8px rgba(255, 43, 91, 0.5)) drop-shadow(0 0 12px rgba(255, 105, 180, 0.4));
+            transition: all 0.3s ease;
+        }
+
+        /* Letter Styling inside heart with heavy contrast text outline */
+        .letter-text {
+            position: relative;
+            z-index: 10;
+            color: #ffffff;
+            font-size: clamp(1.4rem, 4.8vw, 3.8rem);
+            font-weight: 800;
+            text-shadow: 
+                -1.5px -1.5px 0 #60001e,
+                 1.5px -1.5px 0 #60001e,
+                -1.5px  1.5px 0 #60001e,
+                 1.5px  1.5px 0 #60001e,
+                 0 4px 8px rgba(0, 0, 0, 0.7);
+            transform: translateZ(20px);
+            transition: all 0.2s ease;
+        }
+
+        /* Responsive Spring Jump Animation */
+        .jump-animation {
+            animation: springJump 0.8s cubic-bezier(0.36, 0, 0.66, -0.56) forwards;
+        }
+
+        @keyframes springJump {
+            0% {
+                transform: translateY(0) scale(1, 1) rotate(0deg);
+            }
+            20% {
+                transform: translateY(6px) scale(1.15, 0.85) rotate(-3deg);
+            }
+            45% {
+                transform: translateY(clamp(-50px, -12vh, -35px)) scale(0.9, 1.15) rotate(5deg);
+                filter: drop-shadow(0 15px 15px rgba(255, 77, 109, 0.8));
+            }
+            65% {
+                transform: translateY(-12px) scale(1.05, 0.95) rotate(-2deg);
+            }
+            80% {
+                transform: translateY(-3px) scale(0.98, 1.02) rotate(1deg);
+            }
+            100% {
+                transform: translateY(0) scale(1, 1) rotate(0deg);
+            }
+        }
+
+        /* Floating Idle Animation */
+        .idle-float {
+            animation: floatSlow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes floatSlow {
+            0% {
+                transform: translateY(0px) rotate(-1deg);
+            }
+            100% {
+                transform: translateY(-6px) rotate(2deg);
+            }
+        }
+
+        /* Glowing Action Button */
+        .glow-btn {
+            background: linear-gradient(135deg, #ff3366 0%, #ff5277 50%, #c9184a 100%);
+            box-shadow: 0 0 20px rgba(255, 51, 102, 0.6), 0 5px 0 #80002a;
+            transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            touch-action: manipulation;
+        }
+
+        .glow-btn:hover {
+            transform: translateY(-2px) scale(1.03);
+            box-shadow: 0 0 28px rgba(255, 51, 102, 0.85), 0 7px 0 #80002a;
+        }
+
+        .glow-btn:active {
+            transform: translateY(2px) scale(0.98);
+            box-shadow: 0 0 12px rgba(255, 51, 102, 0.6), 0 2px 0 #80002a;
+        }
+
+        /* Pulse heart glow */
+        .pulse-heart {
+            animation: heartPulse 1.4s infinite alternate;
+        }
+
+        @keyframes heartPulse {
+            0% { transform: scale(1); filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.8)); }
+            100% { transform: scale(1.2); filter: drop-shadow(0 0 15px rgba(255, 77, 109, 1)); }
+        }
+
+        /* Smooth Step Page Fade Transitions */
+        .step-page {
+            transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .step-page.hidden-page {
+            display: none !important;
+            opacity: 0;
+            transform: scale(0.95);
+        }
+        .step-page.active-page {
+            display: flex !important;
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* Evasive No Button dynamic absolute positioning helper */
+        #noBtn {
+            transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+    </style>
+</head>
+<body class="ambient-bg text-white min-h-screen min-h-[100dvh] flex flex-col justify-between items-center relative overflow-x-hidden px-3 py-4 selection:bg-pink-500 selection:text-white">
+
+    <!-- Background Animation Canvas -->
+    <canvas id="bgCanvas"></canvas>
+
+    <!-- Top App Navigation / Progress Indicator -->
+    <header class="w-full pt-2 sm:pt-4 pb-2 text-center z-20 px-2 max-w-xl mx-auto flex flex-col items-center">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-pink-950/80 border border-pink-400/40 text-pink-200 text-xs font-bold tracking-wide uppercase shadow-xl backdrop-blur-md">
+            <i class="fa-solid fa-sparkles text-pink-400"></i>
+            <span id="stepBadgeText">Surprise Step 1 of 4</span>
+            <i class="fa-solid fa-sparkles text-pink-400"></i>
+        </div>
+        <!-- Progress Dots -->
+        <div class="flex items-center gap-2 mt-2">
+            <div id="dot-1" class="w-2.5 h-2.5 rounded-full bg-pink-500 ring-2 ring-pink-300 transition-all"></div>
+            <div id="dot-2" class="w-2 h-2 rounded-full bg-pink-900/80 border border-pink-500/40 transition-all"></div>
+            <div id="dot-3" class="w-2 h-2 rounded-full bg-pink-900/80 border border-pink-500/40 transition-all"></div>
+            <div id="dot-4" class="w-2 h-2 rounded-full bg-pink-900/80 border border-pink-500/40 transition-all"></div>
+        </div>
+    </header>
+
+    <!-- MAIN STEP CONTENT WRAPPER -->
+    <main class="w-full max-w-2xl px-2 my-auto z-20 flex flex-col items-center justify-center min-h-[68vh] sm:min-h-[72vh]">
+        
+        <!-- =======================================================
+             STEP 1: WELCOME PAGE
+             ======================================================= -->
+        <div id="page-1" class="step-page active-page flex-col items-center justify-center text-center w-full">
+            <div class="contrast-card w-full p-6 sm:p-10 rounded-3xl text-center relative overflow-hidden flex flex-col items-center">
+                <!-- Glowing accent circle -->
+                <div class="absolute -top-12 -left-12 w-32 h-32 bg-pink-500/30 rounded-full blur-3xl pointer-events-none"></div>
+                <div class="absolute -bottom-12 -right-12 w-32 h-32 bg-rose-500/30 rounded-full blur-3xl pointer-events-none"></div>
+
+                <div class="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-gradient-to-tr from-pink-600 to-rose-400 flex items-center justify-center shadow-lg shadow-pink-500/40 mb-5 border-2 border-pink-200/50">
+                    <i class="fa-solid fa-gift text-3xl sm:text-4xl text-white pulse-heart"></i>
+                </div>
+
+                <h1 class="text-3xl sm:text-5xl font-cursive text-pink-200 font-bold mb-3 text-glow">
+                    Hey Beautiful Prossy... ❤️
+                </h1>
+
+                <p class="text-pink-100/95 text-base sm:text-xl font-medium leading-relaxed max-w-lg mb-6 text-shadow-strong">
+                    I’ve prepared a special romantic surprise just for you. Are you ready to see what's waiting inside?
+                </p>
+
+                <button onclick="goToPage(2)" class="glow-btn px-8 sm:px-10 py-4 rounded-full font-extrabold text-base sm:text-lg text-white flex items-center gap-3 cursor-pointer tracking-wider uppercase shadow-xl active:scale-95">
+                    <span>Begin Surprise</span>
+                    <i class="fa-solid fa-arrow-right-long text-xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- =======================================================
+             STEP 2: PLAYFUL DATE PROPOSAL ("NO" RUNS AWAY)
+             ======================================================= -->
+        <div id="page-2" class="step-page hidden-page flex-col items-center justify-center text-center w-full">
+            <div class="contrast-card w-full p-6 sm:p-10 rounded-3xl text-center relative overflow-hidden flex flex-col items-center min-h-[380px] justify-center">
+                
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-rose-500/20 border border-rose-400/40 text-rose-200 text-xs font-semibold mb-4">
+                    <i class="fa-solid fa-rose text-rose-400"></i>
+                    <span>Special Question</span>
+                </div>
+
+                <h2 class="text-2xl sm:text-4xl font-extrabold text-white mb-3 text-shadow-strong leading-tight">
+                    Will you go on a date with me, <span class="text-pink-300 font-cursive text-3xl sm:text-5xl drop-shadow-md">Prossy?</span> 🌹
+                </h2>
+
+                <p class="text-pink-100/90 text-sm sm:text-base font-medium mb-8 text-shadow-strong">
+                    I would love to spend some quality romantic time with you!
+                </p>
+
+                <!-- Interactive Buttons Container -->
+                <div id="proposalBtnContainer" class="relative w-full max-w-md h-28 flex items-center justify-center gap-4 sm:gap-8">
+                    <!-- YES Button -->
+                    <button onclick="handleYesClick()" class="glow-btn px-8 sm:px-12 py-3.5 sm:py-4 rounded-full font-extrabold text-lg sm:text-xl text-white shadow-xl cursor-pointer transform hover:scale-110 active:scale-95 flex items-center gap-2 z-10">
+                        <i class="fa-solid fa-heart text-white"></i>
+                        <span>YES!</span>
+                    </button>
+
+                    <!-- Evasive NO Button -->
+                    <button id="noBtn" onmouseover="dodgeNoButton()" onclick="dodgeNoButton()" ontouchstart="dodgeNoButton(event)" class="px-6 sm:px-8 py-3.5 sm:py-4 rounded-full font-bold text-base sm:text-lg bg-gray-800/90 border border-gray-600 text-gray-200 shadow-md cursor-pointer flex items-center gap-2 z-10">
+                        <span>No</span>
+                        <i class="fa-solid fa-face-frown text-sm"></i>
+                    </button>
+                </div>
+
+                <p id="playfulHint" class="text-xs text-pink-300/80 font-medium italic mt-2 opacity-0 transition-opacity">
+                    (Psst... 'No' seems a bit shy today! 😉)
+                </p>
+            </div>
+        </div>
+
+        <!-- =======================================================
+             STEP 3: DATE SELECTOR CALENDAR (Nov 16 - Dec 6)
+             ======================================================= -->
+        <div id="page-3" class="step-page hidden-page flex-col items-center justify-center text-center w-full">
+            <div class="contrast-card w-full p-4 sm:p-7 rounded-3xl text-center relative overflow-hidden flex flex-col items-center">
+                
+                <h2 class="text-xl sm:text-3xl font-extrabold text-pink-100 mb-1 text-shadow-strong">
+                    Pick Our Special Date 📅
+                </h2>
+                <p class="text-pink-200/90 text-xs sm:text-sm font-medium mb-4 text-shadow-strong">
+                    Select any day between <strong class="text-pink-300 font-bold">Nov 16th</strong> and <strong class="text-pink-300 font-bold">Dec 6th</strong>!
+                </p>
+
+                <!-- Calendar Card -->
+                <div class="w-full bg-white/95 rounded-2xl p-3 sm:p-5 text-gray-900 shadow-2xl border border-pink-300 mb-4">
+                    <!-- Calendar Month Header -->
+                    <div class="flex items-center justify-between font-bold text-pink-950 text-base sm:text-lg border-b border-pink-100 pb-2 mb-3">
+                        <span class="flex items-center gap-1.5 text-pink-700">
+                            <i class="fa-solid fa-calendar-days"></i> Nov / Dec 2026
+                        </span>
+                        <span class="text-xs bg-pink-100 text-pink-800 px-2.5 py-1 rounded-full font-semibold">3 Weeks Available</span>
+                    </div>
+
+                    <!-- Weekday Initials -->
+                    <div class="grid grid-cols-7 gap-1 text-center text-xs font-extrabold text-pink-900/70 mb-2">
+                        <div>Sun</div><div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div>
+                    </div>
+
+                    <!-- Grid of Days -->
+                    <div id="calendarGrid" class="grid grid-cols-7 gap-1 sm:gap-2">
+                        <!-- JS injected days -->
+                    </div>
+                </div>
+
+                <!-- Selected Date Display Card -->
+                <div id="selectedDateCard" class="w-full bg-pink-950/90 border border-pink-400/50 rounded-2xl p-3 text-center mb-4 flex items-center justify-between px-4">
+                    <div class="text-left">
+                        <span class="text-[11px] uppercase font-bold text-pink-300 tracking-wider block">Your Selected Date</span>
+                        <span id="selectedDateText" class="text-base sm:text-lg font-extrabold text-white">Sunday, Nov 22nd</span>
+                    </div>
+                    <i class="fa-solid fa-heart-circle-check text-2xl text-pink-400"></i>
+                </div>
+
+                <button onclick="goToPage(4)" class="glow-btn w-full py-3.5 rounded-full font-extrabold text-base sm:text-lg text-white flex items-center justify-center gap-2 cursor-pointer shadow-lg active:scale-95 uppercase tracking-wide">
+                    <span>Lock In Date & Reveal Magic</span>
+                    <i class="fa-solid fa-sparkles"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- =======================================================
+             STEP 4: JUMPING PROSSY HEARTS & LOVE MELODIES
+             ======================================================= -->
+        <div id="page-4" class="step-page hidden-page flex-col items-center justify-center text-center w-full">
+            
+            <div class="text-center mb-1 sm:mb-3">
+                <h1 class="text-3xl sm:text-5xl font-cursive text-pink-200 font-bold drop-shadow-md text-glow">
+                    For My Beautiful Prossy ❤️
+                </h1>
+                <p class="text-pink-100 text-xs sm:text-sm mt-0.5 max-w-xs sm:max-w-md mx-auto font-semibold text-shadow-strong">
+                    Tap or hover over each heart letter to launch love!
+                </p>
+            </div>
+
+            <!-- Single-Line Flexbox Letters Container -->
+            <div id="lettersContainer" class="flex flex-nowrap justify-center items-center gap-1 sm:gap-2.5 md:gap-4 py-3 sm:py-6 w-full max-w-full overflow-hidden">
+                <!-- Letter P -->
+                <div class="heart-badge-wrapper" data-index="0">
+                    <div class="heart-container idle-float" style="animation-delay: 0s;">
+                        <svg class="heart-svg" viewBox="0 0 100 90">
+                            <defs>
+                                <linearGradient id="gradP" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#ff4d6d" />
+                                    <stop offset="50%" stop-color="#ff0054" />
+                                    <stop offset="100%" stop-color="#80002a" />
+                                </linearGradient>
+                            </defs>
+                            <path d="M50,88 C50,88 10,58 10,30 C10,14 22,6 35,6 C43,6 48,10 50,15 C52,10 57,6 65,6 C78,6 90,14 90,30 C90,58 50,88 50,88 Z" fill="url(#gradP)"/>
+                        </svg>
+                        <span class="letter-text font-playful">P</span>
+                    </div>
+                </div>
+
+                <!-- Letter R -->
+                <div class="heart-badge-wrapper" data-index="1">
+                    <div class="heart-container idle-float" style="animation-delay: 0.2s;">
+                        <svg class="heart-svg" viewBox="0 0 100 90">
+                            <defs>
+                                <linearGradient id="gradR" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#ff758f" />
+                                    <stop offset="50%" stop-color="#ff4d6d" />
+                                    <stop offset="100%" stop-color="#c9184a" />
+                                </linearGradient>
+                            </defs>
+                            <path d="M50,88 C50,88 10,58 10,30 C10,14 22,6 35,6 C43,6 48,10 50,15 C52,10 57,6 65,6 C78,6 90,14 90,30 C90,58 50,88 50,88 Z" fill="url(#gradR)"/>
+                        </svg>
+                        <span class="letter-text font-playful">R</span>
+                    </div>
+                </div>
+
+                <!-- Letter O -->
+                <div class="heart-badge-wrapper" data-index="2">
+                    <div class="heart-container idle-float" style="animation-delay: 0.4s;">
+                        <svg class="heart-svg" viewBox="0 0 100 90">
+                            <defs>
+                                <linearGradient id="gradO" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#ff8fa3" />
+                                    <stop offset="50%" stop-color="#ff4d6d" />
+                                    <stop offset="100%" stop-color="#a4133c" />
+                                </linearGradient>
+                            </defs>
+                            <path d="M50,88 C50,88 10,58 10,30 C10,14 22,6 35,6 C43,6 48,10 50,15 C52,10 57,6 65,6 C78,6 90,14 90,30 C90,58 50,88 50,88 Z" fill="url(#gradO)"/>
+                        </svg>
+                        <span class="letter-text font-playful">O</span>
+                    </div>
+                </div>
+
+                <!-- Letter S -->
+                <div class="heart-badge-wrapper" data-index="3">
+                    <div class="heart-container idle-float" style="animation-delay: 0.6s;">
+                        <svg class="heart-svg" viewBox="0 0 100 90">
+                            <defs>
+                                <linearGradient id="gradS1" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#ff4d6d" />
+                                    <stop offset="50%" stop-color="#ff0054" />
+                                    <stop offset="100%" stop-color="#80002a" />
+                                </linearGradient>
+                            </defs>
+                            <path d="M50,88 C50,88 10,58 10,30 C10,14 22,6 35,6 C43,6 48,10 50,15 C52,10 57,6 65,6 C78,6 90,14 90,30 C90,58 50,88 50,88 Z" fill="url(#gradS1)"/>
+                        </svg>
+                        <span class="letter-text font-playful">S</span>
+                    </div>
+                </div>
+
+                <!-- Letter S -->
+                <div class="heart-badge-wrapper" data-index="4">
+                    <div class="heart-container idle-float" style="animation-delay: 0.8s;">
+                        <svg class="heart-svg" viewBox="0 0 100 90">
+                            <defs>
+                                <linearGradient id="gradS2" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#ff758f" />
+                                    <stop offset="50%" stop-color="#ff4d6d" />
+                                    <stop offset="100%" stop-color="#c9184a" />
+                                </linearGradient>
+                            </defs>
+                            <path d="M50,88 C50,88 10,58 10,30 C10,14 22,6 35,6 C43,6 48,10 50,15 C52,10 57,6 65,6 C78,6 90,14 90,30 C90,58 50,88 50,88 Z" fill="url(#gradS2)"/>
+                        </svg>
+                        <span class="letter-text font-playful">S</span>
+                    </div>
+                </div>
+
+                <!-- Letter Y -->
+                <div class="heart-badge-wrapper" data-index="5">
+                    <div class="heart-container idle-float" style="animation-delay: 1.0s;">
+                        <svg class="heart-svg" viewBox="0 0 100 90">
+                            <defs>
+                                <linearGradient id="gradY" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#ffb3c1" />
+                                    <stop offset="50%" stop-color="#ff4d6d" />
+                                    <stop offset="100%" stop-color="#a4133c" />
+                                </linearGradient>
+                            </defs>
+                            <path d="M50,88 C50,88 10,58 10,30 C10,14 22,6 35,6 C43,6 48,10 50,15 C52,10 57,6 65,6 C78,6 90,14 90,30 C90,58 50,88 50,88 Z" fill="url(#gradY)"/>
+                        </svg>
+                        <span class="letter-text font-playful">Y</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Controls Section -->
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-2.5 sm:gap-4 mt-2 sm:mt-4 w-full max-w-xs sm:max-w-none">
+                <button id="jumpAllBtn" onclick="triggerWaveJump()" class="glow-btn w-full sm:w-auto px-6 sm:px-8 py-3 rounded-full font-extrabold text-sm sm:text-base text-white flex items-center justify-center gap-2 cursor-pointer tracking-wide uppercase shadow-lg">
+                    <i class="fa-solid fa-heart pulse-heart text-white"></i>
+                    <span>Jump All & Burst Love!</span>
+                    <i class="fa-solid fa-wand-magic-sparkles"></i>
+                </button>
+
+                <button id="toggleMusicBtn" onclick="toggleRomanticTone()" class="w-full sm:w-auto px-5 py-3 rounded-full bg-pink-950/90 hover:bg-pink-900/90 border border-pink-400/50 text-pink-100 text-xs sm:text-sm font-bold transition-all flex items-center justify-center gap-2 backdrop-blur-md active:scale-95 shadow-lg">
+                    <i id="musicIcon" class="fa-solid fa-music text-pink-300"></i>
+                    <span id="musicText">Play Love Melodies</span>
+                </button>
+            </div>
+
+            <!-- High-Contrast Love Message Card -->
+            <div class="light-card-badge w-full max-w-md sm:max-w-lg mt-4 sm:mt-6 p-4 sm:p-6 rounded-2xl sm:rounded-3xl text-center relative overflow-hidden">
+                <i class="fa-solid fa-quote-left text-xl sm:text-2xl text-pink-600/40 mb-1 block"></i>
+                <p id="loveQuote" class="text-base sm:text-xl font-cursive text-pink-950 font-bold leading-relaxed min-h-[50px] flex items-center justify-center">
+                    "Every letter of your name holds a beat of my heart, Prossy."
+                </p>
+                <div class="mt-2 flex items-center justify-center gap-2 text-[11px] sm:text-xs text-pink-800 font-extrabold tracking-wider uppercase">
+                    <span class="w-6 sm:w-8 h-0.5 bg-pink-300"></span>
+                    <span id="confirmedDateBadge">Confirmed Date: Nov 22, 2026</span>
+                    <span class="w-6 sm:w-8 h-0.5 bg-pink-300"></span>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="w-full py-2 text-center z-20 text-[11px] sm:text-xs text-pink-200/70 font-semibold text-shadow-strong">
+        Made with endless ❤️ for Prossy
+    </footer>
+
+    <!-- JavaScript Application Logic -->
+    <script>
+        /* =======================================================
+           1. Step Navigation & Page Switching Logic
+           ======================================================= */
+        let currentPage = 1;
+        let chosenDateStr = "Sunday, Nov 22nd";
+
+        function goToPage(pageNum) {
+            currentPage = pageNum;
+            
+            // Hide all pages
+            document.querySelectorAll('.step-page').forEach(page => {
+                page.classList.remove('active-page');
+                page.classList.add('hidden-page');
+            });
+
+            // Show selected page
+            const target = document.getElementById(`page-${pageNum}`);
+            if (target) {
+                target.classList.remove('hidden-page');
+                target.classList.add('active-page');
+            }
+
+            // Update badge text and dots
+            document.getElementById('stepBadgeText').textContent = `Surprise Step ${pageNum} of 4`;
+            
+            for (let i = 1; i <= 4; i++) {
+                const dot = document.getElementById(`dot-${i}`);
+                if (i === pageNum) {
+                    dot.className = "w-3 h-3 rounded-full bg-pink-400 ring-4 ring-pink-500/40 transition-all";
+                } else if (i < pageNum) {
+                    dot.className = "w-2.5 h-2.5 rounded-full bg-pink-500 transition-all";
+                } else {
+                    dot.className = "w-2 h-2 rounded-full bg-pink-900/80 border border-pink-500/40 transition-all";
+                }
+            }
+
+            // Trigger canvas particles burst on step transition
+            createParticleBurst(window.innerWidth / 2, window.innerHeight / 2, 25);
+
+            // Special step 4 initialization
+            if (pageNum === 4) {
+                document.getElementById('confirmedDateBadge').textContent = `Confirmed Date: ${chosenDateStr}`;
+                setTimeout(() => {
+                    triggerWaveJump();
+                }, 300);
+            }
+        }
+
+        /* =======================================================
+           2. Step 2: Evasive "NO" Button Behavior
+           ======================================================= */
+        let dodgeCount = 0;
+        function dodgeNoButton(e) {
+            if (e) e.preventDefault();
+            const noBtn = document.getElementById('noBtn');
+            const container = document.getElementById('proposalBtnContainer');
+            
+            const containerRect = container.getBoundingClientRect();
+            const btnRect = noBtn.getBoundingClientRect();
+
+            // Calculate random relative offsets inside container bounds
+            const maxX = (containerRect.width / 2) - (btnRect.width / 2);
+            const maxY = 60;
+
+            const randomX = (Math.random() * maxX * 2) - maxX;
+            const randomY = (Math.random() * maxY * 2) - maxY;
+
+            noBtn.style.transform = `translate(${randomX}px, ${randomY}px) scale(${Math.max(0.6, 1 - dodgeCount * 0.08)})`;
+            
+            dodgeCount++;
+            const hint = document.getElementById('playfulHint');
+            if (dodgeCount > 1) {
+                hint.style.opacity = '1';
+            }
+        }
+
+        function handleYesClick() {
+            createParticleBurst(window.innerWidth / 2, window.innerHeight / 2, 50);
+            goToPage(3);
+        }
+
+        /* =======================================================
+           3. Step 3: Calendar Setup (Nov 16 - Dec 6)
+           ======================================================= */
+        const calendarGrid = document.getElementById('calendarGrid');
+        
+        // Nov 16, 2026 is a Monday (Index 1: Sun=0, Mon=1)
+        // We render empty offset slots for Sunday Nov 15
+        const calendarDays = [
+            { day: null }, // Sunday blank placeholder
+            { day: 16, month: 'Nov', weekday: 'Mon' },
+            { day: 17, month: 'Nov', weekday: 'Tue' },
+            { day: 18, month: 'Nov', weekday: 'Wed' },
+            { day: 19, month: 'Nov', weekday: 'Thu' },
+            { day: 20, month: 'Nov', weekday: 'Fri' },
+            { day: 21, month: 'Nov', weekday: 'Sat' },
+            { day: 22, month: 'Nov', weekday: 'Sun' },
+            { day: 23, month: 'Nov', weekday: 'Mon' },
+            { day: 24, month: 'Nov', weekday: 'Tue' },
+            { day: 25, month: 'Nov', weekday: 'Wed' },
+            { day: 26, month: 'Nov', weekday: 'Thu' },
+            { day: 27, month: 'Nov', weekday: 'Fri' },
+            { day: 28, month: 'Nov', weekday: 'Sat' },
+            { day: 29, month: 'Nov', weekday: 'Sun' },
+            { day: 30, month: 'Nov', weekday: 'Mon' },
+            { day: 1, month: 'Dec', weekday: 'Tue' },
+            { day: 2, month: 'Dec', weekday: 'Wed' },
+            { day: 3, month: 'Dec', weekday: 'Thu' },
+            { day: 4, month: 'Dec', weekday: 'Fri' },
+            { day: 5, month: 'Dec', weekday: 'Sat' },
+            { day: 6, month: 'Dec', weekday: 'Sun' }
+        ];
+
+        let selectedDayIndex = 7; // Default to Nov 22nd
+
+        function renderCalendar() {
+            calendarGrid.innerHTML = '';
+
+            calendarDays.forEach((item, idx) => {
+                if (!item.day) {
+                    const emptyCell = document.createElement('div');
+                    emptyCell.className = "p-2 opacity-0";
+                    calendarGrid.appendChild(emptyCell);
+                    return;
+                }
+
+                const btn = document.createElement('button');
+                const isSelected = (idx === selectedDayIndex);
+
+                btn.className = `p-2 sm:p-2.5 rounded-xl font-bold text-xs sm:text-sm flex flex-col items-center justify-center transition-all cursor-pointer border ${
+                    isSelected 
+                        ? 'bg-gradient-to-br from-pink-500 to-rose-600 text-white border-pink-300 shadow-md scale-105 ring-2 ring-pink-400' 
+                        : 'bg-pink-50/80 hover:bg-pink-100 text-pink-950 border-pink-200'
+                }`;
+
+                btn.innerHTML = `
+                    <span class="text-[9px] uppercase tracking-wider font-extrabold ${isSelected ? 'text-pink-100' : 'text-pink-600'}">${item.month}</span>
+                    <span class="text-sm sm:text-base font-extrabold leading-none">${item.day}</span>
+                `;
+
+                btn.onclick = () => selectDate(idx, item);
+                calendarGrid.appendChild(btn);
+            });
+        }
+
+        function selectDate(idx, item) {
+            selectedDayIndex = idx;
+            chosenDateStr = `${item.weekday}, ${item.month} ${item.day}${getOrdinalSuffix(item.day)}`;
+            document.getElementById('selectedDateText').textContent = chosenDateStr;
+            renderCalendar();
+            createParticleBurst(window.innerWidth / 2, window.innerHeight / 2, 15);
+        }
+
+        function getOrdinalSuffix(d) {
+            if (d > 3 && d < 21) return 'th';
+            switch (d % 10) {
+                case 1:  return "st";
+                case 2:  return "nd";
+                case 3:  return "rd";
+                default: return "th";
+            }
+        }
+
+        renderCalendar();
+
+        /* =======================================================
+           4. Web Audio API Synth (Melodies & Jump Sound Effects)
+           ======================================================= */
+        let audioCtx = null;
+        let isMusicPlaying = false;
+        let musicInterval = null;
+
+        function initAudio() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+        }
+
+        function playJumpSound(index) {
+            try {
+                initAudio();
+                const now = audioCtx.currentTime;
+                const frequencies = [261.63, 293.66, 329.63, 392.00, 440.00, 523.25];
+                const freq = frequencies[index % frequencies.length];
+
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(freq, now);
+                osc.frequency.exponentialRampToValueAtTime(freq * 1.5, now + 0.15);
+
+                gain.gain.setValueAtTime(0.25, now);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
+
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+
+                osc.start(now);
+                osc.stop(now + 0.35);
+            } catch (e) {
+                // Audio fallback
+            }
+        }
+
+        function toggleRomanticTone() {
+            initAudio();
+            const btnText = document.getElementById('musicText');
+            const musicIcon = document.getElementById('musicIcon');
+
+            if (isMusicPlaying) {
+                clearInterval(musicInterval);
+                isMusicPlaying = false;
+                btnText.textContent = "Play Love Melodies";
+                musicIcon.className = "fa-solid fa-music text-pink-300";
+            } else {
+                isMusicPlaying = true;
+                btnText.textContent = "Pause Melodies";
+                musicIcon.className = "fa-solid fa-pause text-pink-400";
+
+                let noteIdx = 0;
+                const melody = [0, 2, 4, 3, 5, 4, 2, 1];
+                
+                musicInterval = setInterval(() => {
+                    playJumpSound(melody[noteIdx % melody.length]);
+                    triggerLetterJump(melody[noteIdx % melody.length], false);
+                    noteIdx++;
+                }, 400);
+            }
+        }
+
+        /* =======================================================
+           5. Step 4: Heart Jump Animations & Particle Burst
+           ======================================================= */
+        const loveQuotes = [
+            "\"Every letter of your name holds a beat of my heart, Prossy.\"",
+            "\"You bring sunshine, laughter, and magic into my world every single day.\"",
+            "\"Prossy: Pretty, Radiant, Outstanding, Sweet, Special, Yours forever.\"",
+            "\"If I had a flower for every time I thought of you, Prossy, I could walk through my garden forever.\"",
+            "\"My favorite place in the world is right next to you.\"",
+            "\"You are my today and all of my tomorrows, Prossy ❤️\""
+        ];
+        let currentQuoteIndex = 0;
+        const isJumping = [false, false, false, false, false, false];
+
+        function triggerLetterJump(index, playSound = true) {
+            const letterWrappers = document.querySelectorAll('.heart-badge-wrapper');
+            if (!letterWrappers[index]) return;
+
+            const container = letterWrappers[index].querySelector('.heart-container');
+
+            if (isJumping[index]) return;
+            isJumping[index] = true;
+
+            if (playSound) playJumpSound(index);
+
+            container.classList.remove('idle-float');
+            container.classList.add('jump-animation');
+
+            const rect = container.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+            createParticleBurst(centerX, centerY, 10);
+
+            setTimeout(() => {
+                container.classList.remove('jump-animation');
+                container.classList.add('idle-float');
+                isJumping[index] = false;
+            }, 800);
+        }
+
+        document.querySelectorAll('.heart-badge-wrapper').forEach(wrapper => {
+            const index = parseInt(wrapper.getAttribute('data-index'), 10);
+            
+            const handleTouchOrClick = (e) => {
+                e.preventDefault();
+                triggerLetterJump(index, true);
+            };
+
+            wrapper.addEventListener('pointerdown', handleTouchOrClick);
+            wrapper.addEventListener('mouseenter', (e) => {
+                if (window.matchMedia('(pointer: fine)').matches) {
+                    triggerLetterJump(index, true);
+                }
+            });
+        });
+
+        function triggerWaveJump() {
+            initAudio();
+            const total = 6;
+            
+            for (let i = 0; i < total; i++) {
+                setTimeout(() => {
+                    triggerLetterJump(i, true);
+                }, i * 100);
+            }
+
+            const centerX = window.innerWidth / 2;
+            const centerY = window.innerHeight / 2.5;
+            createParticleBurst(centerX, centerY, 35);
+
+            currentQuoteIndex = (currentQuoteIndex + 1) % loveQuotes.length;
+            const quoteEl = document.getElementById('loveQuote');
+            quoteEl.style.opacity = '0';
+            setTimeout(() => {
+                quoteEl.textContent = loveQuotes[currentQuoteIndex];
+                quoteEl.style.transition = 'opacity 0.4s ease';
+                quoteEl.style.opacity = '1';
+            }, 250);
+        }
+
+        /* =======================================================
+           6. Background Canvas Particles & Sparkles
+           ======================================================= */
+        const canvas = document.getElementById('bgCanvas');
+        const ctx = canvas.getContext('2d');
+
+        let width = canvas.width = window.innerWidth;
+        let height = canvas.height = window.innerHeight;
+
+        window.addEventListener('resize', () => {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        });
+
+        const bgHearts = [];
+        const bgHeartCount = Math.min(30, Math.floor(window.innerWidth / 15));
+
+        class BgHeart {
+            constructor() {
+                this.reset(true);
+            }
+
+            reset(initial = false) {
+                this.x = Math.random() * width;
+                this.y = initial ? Math.random() * height : height + 30;
+                this.size = Math.random() * 12 + 6;
+                this.speedY = Math.random() * 0.7 + 0.3;
+                this.opacity = Math.random() * 0.4 + 0.25;
+                this.rotation = Math.random() * Math.PI * 2;
+                this.rotSpeed = (Math.random() - 0.5) * 0.02;
+                this.color = `hsla(${Math.random() * 20 + 340}, 100%, ${Math.random() * 20 + 60}%, ${this.opacity})`;
+            }
+
+            update() {
+                this.y -= this.speedY;
+                this.x += Math.sin(this.y * 0.01) * 0.4;
+                this.rotation += this.rotSpeed;
+
+                if (this.y < -30) {
+                    this.reset(false);
+                }
+            }
+
+            draw() {
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                ctx.rotate(this.rotation);
+                ctx.fillStyle = this.color;
+
+                ctx.beginPath();
+                const topCurveHeight = this.size * 0.3;
+                ctx.moveTo(0, topCurveHeight);
+                ctx.bezierCurveTo(0, 0, -this.size / 2, 0, -this.size / 2, topCurveHeight);
+                ctx.bezierCurveTo(-this.size / 2, (this.size + topCurveHeight) / 2, 0, this.size, 0, this.size);
+                ctx.bezierCurveTo(0, this.size, this.size / 2, (this.size + topCurveHeight) / 2, this.size / 2, topCurveHeight);
+                ctx.bezierCurveTo(this.size / 2, 0, 0, 0, 0, topCurveHeight);
+                ctx.closePath();
+                ctx.fill();
+                ctx.restore();
+            }
+        }
+
+        for (let i = 0; i < bgHeartCount; i++) {
+            bgHearts.push(new BgHeart());
+        }
+
+        const burstParticles = [];
+
+        class BurstParticle {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                const angle = Math.random() * Math.PI * 2;
+                const speed = Math.random() * 6 + 1.5;
+                this.vx = Math.cos(angle) * speed;
+                this.vy = Math.sin(angle) * speed - 1.5;
+                this.gravity = 0.12;
+                this.friction = 0.96;
+                this.size = Math.random() * 8 + 4;
+                this.alpha = 1;
+                this.decay = Math.random() * 0.025 + 0.015;
+                this.type = Math.random() > 0.4 ? 'heart' : 'sparkle';
+                this.color = `hsl(${Math.random() * 40 + 330}, 100%, ${Math.random() * 30 + 60}%)`;
+            }
+
+            update() {
+                this.vx *= this.friction;
+                this.vy *= this.friction;
+                this.vy += this.gravity;
+                this.x += this.vx;
+                this.y += this.vy;
+                this.alpha -= this.decay;
+            }
+
+            draw() {
+                ctx.save();
+                ctx.globalAlpha = Math.max(0, this.alpha);
+                ctx.translate(this.x, this.y);
+                ctx.fillStyle = this.color;
+
+                if (this.type === 'heart') {
+                    ctx.beginPath();
+                    const s = this.size / 2;
+                    ctx.moveTo(0, s * 0.3);
+                    ctx.bezierCurveTo(0, 0, -s, 0, -s, s * 0.3);
+                    ctx.bezierCurveTo(-s, (s + s * 0.3) / 2, 0, s, 0, s);
+                    ctx.bezierCurveTo(0, s, s, (s + s * 0.3) / 2, s, s * 0.3);
+                    ctx.bezierCurveTo(s, 0, 0, 0, 0, s * 0.3);
+                    ctx.closePath();
+                    ctx.fill();
+                } else {
+                    ctx.beginPath();
+                    for (let i = 0; i < 4; i++) {
+                        ctx.lineTo(Math.cos((i * Math.PI) / 2) * this.size, Math.sin((i * Math.PI) / 2) * this.size);
+                        ctx.lineTo(Math.cos((i * Math.PI) / 2 + Math.PI / 4) * (this.size / 3), Math.sin((i * Math.PI) / 2 + Math.PI / 4) * (this.size / 3));
+                    }
+                    ctx.closePath();
+                    ctx.fill();
+                }
+
+                ctx.restore();
+            }
+        }
+
+        function createParticleBurst(x, y, count = 12) {
+            for (let i = 0; i < count; i++) {
+                burstParticles.push(new BurstParticle(x, y));
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
+
+            bgHearts.forEach(heart => {
+                heart.update();
+                heart.draw();
+            });
+
+            for (let i = burstParticles.length - 1; i >= 0; i--) {
+                const p = burstParticles[i];
+                p.update();
+                p.draw();
+                if (p.alpha <= 0) {
+                    burstParticles.splice(i, 1);
+                }
+            }
+
+            requestAnimationFrame(animate);
+        }
+
+        window.addEventListener('pointerdown', (e) => {
+            if (e.target.closest('button') || e.target.closest('.heart-badge-wrapper')) return;
+            createParticleBurst(e.clientX, e.clientY, 6);
+        });
+
+        window.onload = function() {
+            animate();
+        };
+    </script>
+</body>
+</html>
